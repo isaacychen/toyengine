@@ -2,6 +2,7 @@ add_executable(tiny-renderer
         main.cpp
         tgaimage.cpp
         model.cpp
+        cj2math.cpp
         )
 
 # 复制resources目录到输出目录的自定义命令
