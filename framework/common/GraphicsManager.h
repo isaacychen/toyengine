@@ -8,10 +8,14 @@
 #include "RuntimeModule.h"
 
 namespace cj2engine {
+
     class GraphicsManager : public RuntimeModule {
+
     public:
         virtual ~GraphicsManager() = default;
+
     };
+
 }
 
 #endif //CJ2ENGINE_GRAPHICSMANAGER_H

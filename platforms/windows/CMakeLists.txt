@@ -1,1 +1,2 @@
-add_executable(hello-win hello-win.cpp)
+add_executable(hello-win WIN32 hello-win.cpp)
+target_link_libraries(hello-win PRIVATE user32)

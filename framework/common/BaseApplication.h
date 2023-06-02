@@ -8,8 +8,11 @@
 #include "Application.h"
 
 namespace cj2engine {
+
     class BaseApplication : public Application {
+    private:
         bool quit = false;
+
     public:
         void init() override;
 

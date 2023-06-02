@@ -5,6 +5,8 @@
 #include "BaseApplication.h"
 
 namespace cj2engine {
+
     BaseApplication baseApp;
     Application *app = &baseApp;
+
 }

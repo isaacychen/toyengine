@@ -8,10 +8,14 @@
 #include "RuntimeModule.h"
 
 namespace cj2engine {
-    class Application: public RuntimeModule{
+
+    class Application : public RuntimeModule {
+
     public:
         virtual bool isQuit() = 0;
+
     };
+
 }
 
 #endif //CJ2ENGINE_APPLICATION_H

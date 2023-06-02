@@ -6,6 +6,7 @@
 #include <cstdio>
 
 namespace cj2engine {
+
     void BaseApplication::init() {
         quit = false;
     }
@@ -22,4 +23,5 @@ namespace cj2engine {
     bool BaseApplication::isQuit() {
         return quit;
     }
+
 }
