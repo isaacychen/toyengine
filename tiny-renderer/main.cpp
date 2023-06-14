@@ -96,7 +96,7 @@ Vec3f barycentric(const Vec3f &a, const Vec3f &b, const Vec3f &c, const Vec3f &p
     return {1.f - (u.x + u.y) / u.z, u.x / u.z, u.y / u.z};
 }
 
-void triangle(Vec3f *pts, Vec2f *uvs, float *zBuffer, TGAImage &image, const TGAColor &color) {
+void triangle(Vec3f *pts, Vec2f *uvs, float *zBuffer, TGAImage &image, const TGAColor &color, float intensity) {
     Vec2i borderBoxMin(image.get_width() - 1, image.get_height() - 1);
     Vec2i borderBoxMax(0, 0);
     for (int i = 0; i < 3; i++) {
@@ -125,7 +125,7 @@ void triangle(Vec3f *pts, Vec2f *uvs, float *zBuffer, TGAImage &image, const TGA
             TGAColor textureColor = texture->get(uv.x * texture->get_width(), (1 - uv.y) * texture->get_height());
 
             // render with texture
-            image.set(x, y, textureColor);
+            image.set(x, y, TGAColor(textureColor.r * intensity, textureColor.g * intensity, textureColor.b * intensity, 255));
         }
     }
 }
@@ -199,7 +199,7 @@ int main(int argc, char **argv) {
 
         if (intensity <= 0) continue;
 
-        triangle(screen_coords, uvs, zBuffer, image, TGAColor(255 * intensity, 255 * intensity, 255 * intensity, 255));
+        triangle(screen_coords, uvs, zBuffer, image, TGAColor(255 * intensity, 255 * intensity, 255 * intensity, 255), intensity);
     }
 
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
