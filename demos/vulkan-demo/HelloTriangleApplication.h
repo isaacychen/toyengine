@@ -5,11 +5,25 @@
 #ifndef CJ2ENGINE_HELLOTRIANGLEAPPLICATION_H
 #define CJ2ENGINE_HELLOTRIANGLEAPPLICATION_H
 
+#include <vulkan/vulkan.h>
 #include <GLFW/glfw3.h>
-#include <vulkan/vulkan_core.h>
 #include <vector>
+#include <optional>
 
 namespace cj2ware {
+
+    struct QueueFamilyIndices {
+        std::optional<uint32_t> graphicsFamily;
+        std::optional<uint32_t> presentFamily;
+
+        [[nodiscard]] bool isComplete() const;
+    };
+
+    struct SwapChainSupportDetails {
+        VkSurfaceCapabilitiesKHR capabilities{};
+        std::vector<VkSurfaceFormatKHR> formats;
+        std::vector<VkPresentModeKHR> presentModes;
+    };
 
     class HelloTriangleApplication {
     public:
@@ -18,7 +32,13 @@ namespace cj2ware {
     private:
         GLFWwindow *window;
         VkInstance instance;
+        VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
         VkDebugUtilsMessengerEXT debugMessenger;
+        VkDevice device;
+        VkQueue graphicsQueue;
+        VkQueue presentQueue;
+        VkSurfaceKHR surface;
+        VkSwapchainKHR swapChain;
 
         void initWindow();
 
@@ -52,6 +72,28 @@ namespace cj2ware {
                                                   const VkAllocationCallbacks *pAllocator);
 
         void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &createInfo);
+
+        void pickPhysicalDevice();
+
+        bool isDeviceSuitable(VkPhysicalDevice device);
+
+        QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+
+        void createLogicalDevice();
+
+        void createSurface();
+
+        static bool checkDeviceExtensionSupport(VkPhysicalDevice device);
+
+        SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
+
+        VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR> &availableFormats);
+
+        VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> &availablePresentModes);
+
+        VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR &capabilities);
+
+        void createSwapChain();
     };
 
 }
