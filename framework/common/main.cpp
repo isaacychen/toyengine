@@ -9,6 +9,7 @@ namespace cj2engine {
 }
 
 int main(int argc, char *argv[]) {
+
     try {
         app->init();
     } catch (const std::exception &e) {
